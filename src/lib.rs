@@ -22,7 +22,7 @@ impl Logging {
     }
 
     // info
-    pub fn info(&self, msg: &str) {
+    pub fn info<S: std::fmt::Display>(&self, msg: S) {
         if self.log_level == Level::INFO
             || self.log_level == Level::DEBUG
             || self.log_level == Level::TRACE
@@ -35,7 +35,7 @@ impl Logging {
         }
     }
     /// debug
-    pub fn debug(&self, msg: &str) {
+    pub fn debug<S: std::fmt::Display>(&self, msg: S) {
         if self.log_level == Level::DEBUG || self.log_level == Level::TRACE {
             println!(
                 "\x1b[1;92m [ DEBUG {} ] \x1b[0m  : {}",
@@ -45,7 +45,7 @@ impl Logging {
         }
     }
     /// info with highlight
-    pub fn hi(&self, msg: &str) {
+    pub fn hi<S: std::fmt::Display>(&self, msg: S) {
         if self.log_level == Level::INFO
             || self.log_level == Level::DEBUG
             || self.log_level == Level::TRACE
@@ -58,7 +58,7 @@ impl Logging {
         }
     }
     /// info with mid level highlight
-    pub fn mid(&self, msg: &str) {
+    pub fn mid<S: std::fmt::Display>(&self, msg: S) {
         if self.log_level == Level::INFO
             || self.log_level == Level::DEBUG
             || self.log_level == Level::TRACE
@@ -71,7 +71,7 @@ impl Logging {
         }
     }
     // info with low level highlight
-    pub fn lo(&self, msg: &str) {
+    pub fn lo<S: std::fmt::Display>(&self, msg: S) {
         if self.log_level == Level::INFO
             || self.log_level == Level::DEBUG
             || self.log_level == Level::TRACE
@@ -84,7 +84,7 @@ impl Logging {
         }
     }
     // info with extra level highlight
-    pub fn ex(&self, msg: &str) {
+    pub fn ex<S: std::fmt::Display>(&self, msg: S) {
         if self.log_level == Level::INFO
             || self.log_level == Level::DEBUG
             || self.log_level == Level::TRACE
@@ -97,7 +97,7 @@ impl Logging {
         }
     }
     /// trace
-    pub fn trace(&self, msg: &str) {
+    pub fn trace<S: std::fmt::Display>(&self, msg: S) {
         if self.log_level == Level::TRACE {
             println!(
                 "\x1b[1;96m [ TRACE {} ] \x1b[0m  : {}",
@@ -107,7 +107,7 @@ impl Logging {
         }
     }
     /// warning
-    pub fn warn(&self, msg: &str) {
+    pub fn warn<S: std::fmt::Display>(&self, msg: S) {
         println!(
             "\x1b[1;93m [ WARN  {} ] \x1b[0m  : {}",
             self.timestamp(),
@@ -115,7 +115,7 @@ impl Logging {
         );
     }
     /// error
-    pub fn error(&self, msg: &str) {
+    pub fn error<S: std::fmt::Display>(&self, msg: S) {
         println!(
             "\x1b[1;91m [ ERROR {} ] \x1b[0m  : {}",
             self.timestamp(),
@@ -216,5 +216,31 @@ mod tests {
             log_level: Level::TRACE,
         };
         log.hi("testing hi logging with TRACE");
+    }
+
+    #[test]
+    fn test_display_types() {
+        let log = Logging {
+            log_level: Level::INFO,
+        };
+        log.info(format!("testing logging with format: {}", true));
+        log.info(String::from("testing logging with String"));
+        log.info(1);
+        log.info('a');
+
+        struct Custom {
+            value1: u8,
+            value2: f32,
+        }
+
+        impl std::fmt::Display for Custom {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                write!(f, "[{} {}]", self.value1, self.value2)
+            }
+        }
+        log.info(Custom {
+            value1: 42,
+            value2: 0.07,
+        });
     }
 }
