@@ -28,8 +28,7 @@ impl Logging {
             || self.log_level == Level::TRACE
         {
             println!(
-                "\x1b[1;94m [ {} {} ] \x1b[0m  : {}",
-                "INFO ",
+                "\x1b[1;94m [ INFO {} ] \x1b[0m  : {}",
                 self.timestamp(),
                 msg
             );
@@ -39,8 +38,7 @@ impl Logging {
     pub fn debug(&self, msg: &str) {
         if self.log_level == Level::DEBUG || self.log_level == Level::TRACE {
             println!(
-                "\x1b[1;92m [ {} {} ] \x1b[0m  : {}",
-                "DEBUG",
+                "\x1b[1;92m [ DEBUG {} ] \x1b[0m  : {}",
                 self.timestamp(),
                 msg
             );
@@ -53,8 +51,7 @@ impl Logging {
             || self.log_level == Level::TRACE
         {
             println!(
-                "\x1b[1;94m [ {}  {} ] \x1b[0m  : \x1b[1;93m{} \x1b[0m",
-                "INFO",
+                "\x1b[1;94m [ INFO  {} ] \x1b[0m  : \x1b[1;93m{} \x1b[0m",
                 self.timestamp(),
                 msg
             );
@@ -67,8 +64,7 @@ impl Logging {
             || self.log_level == Level::TRACE
         {
             println!(
-                "\x1b[1;94m [ {}  {} ]  \x1b[0m : \x1b[1;94m{} \x1b[0m",
-                "INFO",
+                "\x1b[1;94m [ INFO  {} ]  \x1b[0m : \x1b[1;94m{} \x1b[0m",
                 self.timestamp(),
                 msg
             );
@@ -81,8 +77,7 @@ impl Logging {
             || self.log_level == Level::TRACE
         {
             println!(
-                "\x1b[1;94m [ {}  {} ]  \x1b[0m : \x1b[1;95m{} \x1b[0m",
-                "INFO",
+                "\x1b[1;94m [ INFO  {} ]  \x1b[0m : \x1b[1;95m{} \x1b[0m",
                 self.timestamp(),
                 msg
             );
@@ -95,8 +90,7 @@ impl Logging {
             || self.log_level == Level::TRACE
         {
             println!(
-                "\x1b[1;94m [ {}  {} ]  \x1b[0m : \x1b[1;98m{} \x1b[0m",
-                "INFO",
+                "\x1b[1;94m [ INFO  {} ]  \x1b[0m : \x1b[1;98m{} \x1b[0m",
                 self.timestamp(),
                 msg
             );
@@ -106,8 +100,7 @@ impl Logging {
     pub fn trace(&self, msg: &str) {
         if self.log_level == Level::TRACE {
             println!(
-                "\x1b[1;96m [ {} {} ] \x1b[0m  : {}",
-                "TRACE",
+                "\x1b[1;96m [ TRACE {} ] \x1b[0m  : {}",
                 self.timestamp(),
                 msg
             );
@@ -116,8 +109,7 @@ impl Logging {
     /// warning
     pub fn warn(&self, msg: &str) {
         println!(
-            "\x1b[1;93m [ {}  {} ] \x1b[0m  : {}",
-            "WARN",
+            "\x1b[1;93m [ WARN  {} ] \x1b[0m  : {}",
             self.timestamp(),
             msg
         );
@@ -125,8 +117,7 @@ impl Logging {
     /// error
     pub fn error(&self, msg: &str) {
         println!(
-            "\x1b[1;91m [ {} {} ] \x1b[0m  : {}",
-            "ERROR",
+            "\x1b[1;91m [ ERROR {} ] \x1b[0m  : {}",
             self.timestamp(),
             msg
         );
