@@ -1,4 +1,5 @@
 use chrono::{DateTime, Local};
+use colored::Colorize;
 
 //#[derive(Default)]
 pub struct Logging {
@@ -51,11 +52,11 @@ impl log::Log for Logging {
         let dt_formated = dt_new.format("%Y-%m-%d %H:%M:%S%.3f");
 
         let level_log = match record.level() {
-            log::Level::Info => format!("\x1b[1;94m [ INFO  {} ] \x1b[0m", dt_formated),
-            log::Level::Debug => format!("\x1b[1;92m [ DEBUG {} ] \x1b[0m", dt_formated),
-            log::Level::Trace => format!("\x1b[1;96m [ TRACE {} ] \x1b[0m", dt_formated),
-            log::Level::Warn => format!("\x1b[1;93m [ WARN  {} ] \x1b[0m", dt_formated),
-            log::Level::Error => format!("\x1b[1;91m [ ERROR {} ] \x1b[0m", dt_formated),
+            log::Level::Info => format!("[ INFO  {} ]", dt_formated).bright_blue().bold(),
+            log::Level::Debug => format!("[ DEBUG {} ]", dt_formated).bright_green().bold(),
+            log::Level::Trace => format!("[ TRACE {} ]", dt_formated).bright_cyan().bold(),
+            log::Level::Warn => format!("[ WARN  {} ]", dt_formated).bright_yellow().bold(),
+            log::Level::Error => format!("[ ERROR {} ]", dt_formated).bright_red().bold(),
         };
 
         println!("{} : {}", level_log, record.args());
@@ -84,20 +85,20 @@ impl Logging {
         log::set_boxed_logger(Box::new(self))
     }
 
-    pub fn hi(s: &str) -> String {
-        format!("\x1b[1;93m{} \x1b[0m", s)
+    pub fn hi(s: &str) -> colored::ColoredString {
+        s.bright_yellow().bold()
     }
 
-    pub fn mid(s: &str) -> String {
-        format!("\x1b[1;94m{} \x1b[0m", s)
+    pub fn mid(s: &str) -> colored::ColoredString {
+        s.bright_blue().bold()
     }
 
-    pub fn lo(s: &str) -> String {
-        format!("\x1b[1;95m{} \x1b[0m", s)
+    pub fn lo(s: &str) -> colored::ColoredString {
+        s.bright_purple().bold()
     }
 
-    pub fn ex(s: &str) -> String {
-        format!("\x1b[1;98m{} \x1b[0m", s)
+    pub fn ex(s: &str) -> colored::ColoredString {
+        s.bright_white().bold()
     }
 }
 
