@@ -67,6 +67,7 @@ name = "custom-logger"
 version = "0.1.4"
 dependencies = [
  "chrono",
+ "log",
 ]
 
 [[package]]
